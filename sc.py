@@ -22,5 +22,3 @@ def conectar():
 
 
 conectar()
-
-
