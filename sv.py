@@ -1,8 +1,5 @@
 import socket
 
-
-import subprocess
-
 # Buscamo o Socket e passado a informação que vamos utlizar o protocolo TCP/IP no modo de Stream
 ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -30,6 +27,3 @@ with conexao:
             break
         # A mensagem transmitida codificada e usamos o decode para poder abrir ela.
         print(recebe.decode())
-
-
-
