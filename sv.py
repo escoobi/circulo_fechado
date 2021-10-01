@@ -53,4 +53,3 @@ def escultar(conexao, cliente):
 
 
 main()
-
