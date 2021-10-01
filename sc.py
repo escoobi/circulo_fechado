@@ -1,5 +1,5 @@
 import datetime
-import errno
+
 import socket
 
 import pyautogui
