@@ -1,3 +1,4 @@
+import datetime
 import socket
 
 
@@ -24,16 +25,30 @@ def main():
 
 
 def escultar(conexao, cliente):
-    with conexao:
-        print("Conectado com: ", cliente[0])
-        while True:
-
-            # Recebendo do dados passados com a conexão estabelecida, temos que informar o tamanho do byffer a ser transpotado, no caso 1024 bytes
-            recebe = conexao.recv(1024)
-            if not recebe:
-                break
-            # A mensagem transmitida codificada e usamos o decode para poder abrir ela.
-            print(recebe.decode())
+    print("Conectado com: ", cliente[0])
+    # Enviamos a mensagem informada via conexão estabelecida e codificando ela para ser transmitida.
+    mensagem = input("Soliciar prinscreen cliente: S(Sim) ou N(Não)? ")
+    conexao.send(mensagem.encode())
+    if mensagem.upper() == "S":
+        print("Solicitadação enviada!")
+        nome_arquivo = datetime.datetime.now()
+        nome_arquivo = str(nome_arquivo)
+        nome_arquivo = str(nome_arquivo)
+        nome_arquivo = nome_arquivo.replace(':', '').replace('.', '').replace('-', '').replace(' ', '')
+        abrir = open(f"r_{nome_arquivo}.jpg", "wb")
+        # Recebendo do dados passados com a conexão estabelecida, temos que informar o tamanho do byffer a ser transpotado, no caso 1024 bytes
+        recebe = conexao.recv(2048)
+        # Se não percorrer o arquivo com o while ele vai enviar apenas os primeiros bytes do arquivo.
+        while recebe:
+            abrir.write(recebe)
+            recebe = conexao.recv(2048)
+        print("Printscreen recebido com sucesso!")
+        abrir.close()
+    elif mensagem.upper() == "N":
+        conexao.close()
+        quit()
+    elif mensagem.upper() != "N" or mensagem.upper() != "S":
+        print("Comando não aceito.")
 
 
 main()
