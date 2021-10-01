@@ -55,5 +55,3 @@ def print_tela(clt):
 
 
 conectar()
-
-
